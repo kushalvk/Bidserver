@@ -1,0 +1,14 @@
+import multer from "multer";
+
+const storage = multer.memoryStorage({
+    destination: (req, file, cb) => {
+        cb(null, "./Images");
+    },
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}_${file.originalname}`);
+    },
+});
+
+const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } })
+
+export default upload
