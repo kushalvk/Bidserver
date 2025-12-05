@@ -22,13 +22,6 @@ router.post("/signup", upload.single("photo"), async (req, res) => {
             userPhoto = await uploadOnCloudinary(userPhotoLocalPath);
         }
 
-        const existingUser = await UserModel.findOne({ username });
-        if (existingUser) {
-            return res
-                .status(400)
-                .json({ error: "User with this email already exists" });
-        }
-
         const hash_password = await bcrypt.hash(password, 12);
 
         const newUser = await UserModel.create({
